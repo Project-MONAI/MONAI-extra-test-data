@@ -17,6 +17,6 @@ unet_params = {
     "act":"relu",
     "dropout":0.1,
 }
-    in_size = (1, unet_params["in_channels"], 64, 64, 64)
-    create_model_test_data(UNet, unet_params, in_size, "unet_0")
+in_size = (1, unet_params["in_channels"], 64, 64, 64)
+create_model_test_data(UNet, unet_params, in_size, "unet_0")
 ```
