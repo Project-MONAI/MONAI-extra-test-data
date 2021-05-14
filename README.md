@@ -1,25 +1,41 @@
-# monai-test-data
+# monai-test-data [![CI Build](https://github.com/Project-MONAI/MONAI-extra-test-data/workflows/build/badge.svg?branch=main)](https://github.com/Project-MONAI/MONAI-extra-test-data/commits/main)
 
-[![CI Build](https://github.com/Project-MONAI/MONAI-extra-test-data/workflows/build/badge.svg?branch=main)](https://github.com/Project-MONAI/MONAI-extra-test-data/commits/main)
+Repository for storing networks and their forward data. 
 
-test repository for storing networks and their forward data to ensure consistency
+The data in this repository is used by the main [MONAI repository](https://github.com/Project-MONAI/MONAI) as a unit test. This repository is checked out, the environmantal variable is `MONAI_EXTRA_TEST_DATA` is set and then the unit test can be run.
+
+## Running a test
+
+```bash
+git clone https://github.com/Project-MONAI/MONAI-extra-test-data.git --depth 1
+git clone https://github.com/Project-MONAI/MONAI.git --depth 1
+
+export MONAI_EXTRA_TEST_DATA=MONAI-extra-test-data
+
+cd MONAI
+pip install --user --upgrade -r requirements-min.txt
+python -m unittest -v tests/test_network_consistency.py
+
+```
 
 ## How to create a new test
 
 ```python
-from monai.networks.nets import UNet
+# network params
 unet_params = {
     "dimensions" : 3,
     "in_channels" : 4,
     "out_channels" : 2,
-    "channels":(4, 8, 16, 32),
-    "strides":(2, 4, 1),
+    "channels": (4, 8, 16, 32),
+    "strides": (2, 4, 1),
     "kernel_size" : 5,
     "up_kernel_size" : 3,
-    "num_res_units":2,
-    "act":"relu",
-    "dropout":0.1,
+    "num_res_units": 2,
+    "act": "relu",
+    "dropout": 0.1,
 }
-in_size = (1, unet_params["in_channels"], 64, 64, 64)
-create_model_test_data(UNet, unet_params, in_size, "unet_0")
+# in shape
+input_shape = (1, unet_params["in_channels"], 64, 64, 64)
+# create data
+create_model_test_data("UNet", unet_params, input_shape)
 ```

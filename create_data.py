@@ -1,27 +1,27 @@
 import json
-from typing import Any, Callable, Dict, Tuple
-
+import os
 import torch
+from typing import Any, Dict, Sequence
+
+import monai.networks.nets as nets
 
 
 def create_model_test_data(
-    model_class: Callable,
+    model_name: str,
     model_params: Dict[str, Any],
-    input_shape: Tuple[int],
-    out_path_no_ext: str,
+    input_shape: Sequence[int],
 ) -> None:
     """
     Create test data to check model consistency
 
     Args:
-        model_class: Class of model to be tested.
+        model_class: Name of model to be tested.
         model_params: Dictionary of parameters to construct object.
         input_shape: Tuple of dimensions (B, C, H, W, [D]).
-        out_path_no_ext: Path for saved objects (no extension as both torch.save and json.dump will be used).
 
     .. code-block:: python
 
-        # model parameters
+        # network params
         unet_params = {
             "dimensions" : 3,
             "in_channels" : 4,
@@ -37,14 +37,24 @@ def create_model_test_data(
         # in shape
         input_shape = (1, unet_params["in_channels"], 64, 64, 64)
         # create data
-        create_model_test_data(UNet, unet_params, input_shape, "unet_test")
+        create_model_test_data("UNet", unet_params, input_shape)
     """
+    model_name = model_name.lower()
+    base_folder = os.path.dirname(os.path.abspath(__file__))
 
-    with open(out_path_no_ext + ".json", "w+") as f:
-        json.dump(model_params, f)
+    # get next unused folder
+    i=0
+    while True:
+        out_folder = os.path.join(base_folder, f"{model_name}_{i}")
+        if not os.path.isdir(out_folder):
+            print("\n\nCreating output folder: " + out_folder)
+            os.mkdir(out_folder)
+            break
+        i += 1
+    out_path_no_ext = os.path.join(out_folder, f"{model_name}_{i}")
 
     # Create model
-    model = model_class(**model_params)
+    model = nets.__dict__[model_name](**model_params)
     model.eval()
 
     # Create input data
@@ -55,5 +65,36 @@ def create_model_test_data(
     out_data = model(in_data)
 
     # Save in data, out data and model
+    data_path = out_path_no_ext + ".pt"
     to_save = {"in_data": in_data, "out_data": out_data, "model": model.state_dict()}
-    torch.save(to_save, out_path_no_ext + ".pt")
+    print("Writing data output to .pt: " + data_path)
+    torch.save(to_save, data_path)
+
+    # Save parameters
+    json_params = out_path_no_ext + ".json"
+    with open(json_params, "w+") as f:
+        print("Writing network parameters to .json: " + json_params)
+        json.dump(model_params, f)
+
+
+
+# default
+if __name__ == "__main__":
+
+    # network params
+    unet_params = {
+        "dimensions" : 3,
+        "in_channels" : 4,
+        "out_channels" : 2,
+        "channels": (4, 8, 16, 32),
+        "strides": (2, 4, 1),
+        "kernel_size" : 5,
+        "up_kernel_size" : 3,
+        "num_res_units": 2,
+        "act": "relu",
+        "dropout": 0.1,
+    }
+    # in shape
+    input_shape = (1, unet_params["in_channels"], 64, 64, 64)
+    # create data
+    create_model_test_data("UNet", unet_params, input_shape)
