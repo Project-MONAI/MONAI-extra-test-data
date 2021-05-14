@@ -4,7 +4,7 @@ Repository for storing networks and their forward data.
 
 The data in this repository is used by the main [MONAI repository](https://github.com/Project-MONAI/MONAI) as a unit test. This repository is checked out, the environmantal variable is `MONAI_EXTRA_TEST_DATA` is set and then the unit test can be run.
 
-## Running a test
+## Running the tests
 
 ```bash
 git clone https://github.com/Project-MONAI/MONAI-extra-test-data.git --depth 1
