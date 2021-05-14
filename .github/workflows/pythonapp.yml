@@ -20,11 +20,12 @@ jobs:
         id: run-test
         run: |
           export MONAI_EXTRA_TEST_DATA=$(pwd)
-          pwd
-          ls $MONAI_EXTRA_TEST_DATA
           export MONAI_PATH=~/MONAI
+
           git clone https://github.com/Project-MONAI/MONAI.git --depth 1 $MONAI_PATH
-          ls $MONAI_PATH
-          export PYTHONPATH=${MONAI_PATH}:$PYTHONPAH
-          pip install --user --upgrade -r ${MONAI_PATH}/requirements-min.txt
-          python -m unittest -v ${MONAI_PATH}/tests/test_network_consistency.py
+          ls ~/MONAI/tests
+
+          # pip install --user --upgrade -r ${MONAI_PATH}/requirements-min.txt
+          # export PYTHONPATH=${MONAI_PATH}:$PYTHONPAH
+
+          # python -m unittest -v ${MONAI_PATH}/tests/test_network_consistency.py
