@@ -23,9 +23,12 @@ jobs:
           export MONAI_PATH=~/MONAI
 
           git clone https://github.com/Project-MONAI/MONAI.git --depth 1 $MONAI_PATH
-          ls ~/MONAI/tests
+          cd $MONAI_PATH
+          pip install --user --upgrade -r ${MONAI_PATH}/requirements-min.txt
+          BUILD_MONAI=0 python setup.py develop  # no compile of extensions
 
-          # pip install --user --upgrade -r ${MONAI_PATH}/requirements-min.txt
+          # ls ~/MONAI/tests
+
           # export PYTHONPATH=${MONAI_PATH}:$PYTHONPAH
 
-          # python -m unittest -v ${MONAI_PATH}/tests/test_network_consistency.py
+          python -m unittest -v tests/test_network_consistency.py
