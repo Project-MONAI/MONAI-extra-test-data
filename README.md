@@ -21,8 +21,10 @@ python -m unittest -v tests/test_network_consistency.py
 ## How to create a new test
 
 ```python
+# model name
+model_name = "UNet"
 # network params
-unet_params = {
+params = {
     "dimensions" : 3,
     "in_channels" : 4,
     "out_channels" : 2,
@@ -35,7 +37,7 @@ unet_params = {
     "dropout": 0.1,
 }
 # in shape
-input_shape = (1, unet_params["in_channels"], 64, 64, 64)
+input_shape = (1, params["in_channels"], 64, 64, 64)
 # create data
-create_model_test_data("UNet", unet_params, input_shape)
+create_model_test_data(model_name, params, input_shape)
 ```
