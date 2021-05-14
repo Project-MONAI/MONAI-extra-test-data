@@ -1,4 +1,7 @@
 # monai-test-data
+
+[![CI Build](https://github.com/Project-MONAI/MONAI-extra-test-data/workflows/build/badge.svg?branch=main)](https://github.com/Project-MONAI/MONAI-extra-test-data/commits/main)
+
 test repository for storing networks and their forward data to ensure consistency
 
 ## How to create a new test

@@ -1,4 +1,4 @@
-name: Pull Request on Branch Push
+name: build
 
 on:
   # quick tests for every pull request
