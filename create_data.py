@@ -39,19 +39,18 @@ def create_model_test_data(
         # create data
         create_model_test_data("UNet", unet_params, input_shape)
     """
-    model_name = model_name.lower()
     base_folder = os.path.dirname(os.path.abspath(__file__))
 
     # get next unused folder
     i=0
     while True:
-        out_folder = os.path.join(base_folder, f"{model_name}_{i}")
+        out_folder = os.path.join(base_folder, f"{model_name.lower()}_{i}")
         if not os.path.isdir(out_folder):
             print("\n\nCreating output folder: " + out_folder)
             os.mkdir(out_folder)
             break
         i += 1
-    out_path_no_ext = os.path.join(out_folder, f"{model_name}_{i}")
+    out_path_no_ext = os.path.join(out_folder, f"{model_name.lower()}_{i}")
 
     # Create model
     model = nets.__dict__[model_name](**model_params)

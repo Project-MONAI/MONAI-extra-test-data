@@ -1,0 +1,1 @@
+{"dimensions": 3, "in_shape": [1, 64, 128, 128], "out_channels": 1, "latent_size": 2, "channels": [4, 8, 16], "strides": [2, 2, 2], "num_res_units": 0}
