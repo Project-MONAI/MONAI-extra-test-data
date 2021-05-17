@@ -1,0 +1,1 @@
+{"spatial_dims": 3, "in_channels": 4, "out_channels": 2, "kernel_size": [3, 3, 3, 1], "strides": [2, 2, 2, 2], "upsample_kernel_size": [2, 2, 2]}
