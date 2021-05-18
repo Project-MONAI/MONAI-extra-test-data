@@ -10,6 +10,8 @@ on:
 jobs:
   runtest:
     runs-on: ubuntu-latest
+    env:
+      MONAI_PATH: ~/MONAI
     steps:
       - name: Checkout github repo (+ download lfs dependencies)
         uses: actions/checkout@v2
@@ -23,7 +25,7 @@ jobs:
           python-version: 3.8
       - name: Clone MONAI and get dependencies
         run: |
-          export MONAI_PATH=~/MONAI
+
           git clone https://github.com/Project-MONAI/MONAI.git --depth 1 $MONAI_PATH
           cd $MONAI_PATH
           pip install --user --upgrade -r requirements-min.txt
@@ -33,4 +35,5 @@ jobs:
           # set vars
           export MONAI_EXTRA_TEST_DATA=$(pwd)
           # run unit test
-          python -m unittest -v ~/MONAI/tests/test_network_consistency.py
+          cd ${MONAI_PATH}
+          python -m unittest -v tests/test_network_consistency.py
