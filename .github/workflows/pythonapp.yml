@@ -16,6 +16,9 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
+      - name: Install git-lfs
+        run: |
+          curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
       - name: Run unit test
         run: |
           # set vars
