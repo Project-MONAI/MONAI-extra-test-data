@@ -23,11 +23,11 @@ jobs:
           python-version: 3.8
       - name: Clone MONAI and get dependencies
         run: |
-        MONAI_PATH=~/MONAI
-        git clone https://github.com/Project-MONAI/MONAI.git --depth 1 $MONAI_PATH
-        cd $MONAI_PATH
-        pip install --user --upgrade -r requirements-min.txt
-        BUILD_MONAI=0 python setup.py develop  # no compile of extensions
+          export MONAI_PATH=~/MONAI
+          git clone https://github.com/Project-MONAI/MONAI.git --depth 1 $MONAI_PATH
+          cd $MONAI_PATH
+          pip install --user --upgrade -r requirements-min.txt
+          BUILD_MONAI=0 python setup.py develop  # no compile of extensions
       - name: Run unit test
         run: |
           # set vars
