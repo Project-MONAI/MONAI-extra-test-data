@@ -1,0 +1,10 @@
+{
+    "test_bundle_v0.1.1": {
+        "checksum": "1f6f5c43770fadbee82b2d933c31fbd91818cbfa",
+        "source": "https://github.com/Project-MONAI/MONAI-extra-test-data/releases/download/0.8.1/test_bundle_v0.1.1.zip"
+    },
+    "test_bundle_v0.1.2": {
+        "checksum": "13481e448611014d6f378549ea27d5553aa91c02",
+        "source": "https://github.com/Project-MONAI/MONAI-extra-test-data/releases/download/0.8.1/test_bundle_v0.1.2.zip"
+    }
+}
